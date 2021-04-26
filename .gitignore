@@ -1,0 +1,38 @@
+# footvote-backend
+# Ignore bundler config.
+/footvote-backend/.bundle
+/footvote-backend/vendor/*
+!/footvote-backend/vendor/.keep
+
+# Ignore all logfiles and tempfiles.
+/footvote-backend/log/*
+/footvote-backend/tmp/*
+!/footvote-backend/log/.keep
+!/footvote-backend/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/footvote-backend/tmp/pids/*
+!/footvote-backend/tmp/pids/
+!/footvote-backend/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/footvote-backend/storage/*
+!/footvote-backend/storage/.keep
+/footvote-backend/.byebug_history
+
+# Ignore master key for decrypting credentials and more.
+/footvote-backend/config/master.key
+
+
+# footvote-frontend
+# dependencies
+/footvote-frontend/node_modules
+
+# logs
+/footvote-frontend/npm-debug.log
+
+# Nuxt build
+/footvote-frontend/.nuxt
+
+# Nuxt generate
+/footvote-frontend/dist

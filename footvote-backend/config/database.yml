@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password: postgres
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: footvote_backend_development
+
+test:
+  <<: *default
+  database: footvote_backend_test
+
+production:
+  <<: *default
+  database: footvote_backend_production
+  username: footvote_backend
+  password: <%= ENV['FOOTVOTE_BACKEND_DATABASE_PASSWORD'] %>
