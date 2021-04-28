@@ -13,6 +13,7 @@ services:
         UID: ${UID:-1001}
     volumes:
       - ./footvote-backend:/usr/src/app
+      - ./footvote-backend/tmp/cache:/usr/src/app/tmp/cache
     ports:
       - "8080:8080"
     depends_on:
@@ -28,3 +29,18 @@ services:
     ports:
       - "3000:3000"
     user: frontend
+
+  nginx:
+      image: nginx
+      links:
+        - backend
+        - frontend
+      volumes_from:
+        - backend
+        - frontend
+      volumes:
+        - ./nginx/development/nginx.conf:/etc/nginx/nginx.conf
+        - ./nginx/development/footvote.conf:/etc/nginx/sites-enabled/footvote
+      ports:
+        - "80:80"
+        - "443:443"
