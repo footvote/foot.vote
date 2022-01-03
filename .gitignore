@@ -36,3 +36,6 @@
 
 # Nuxt generate
 /footvote-frontend/dist
+
+# nginx logs and tmp
+/nginx/development/tmp/*
