@@ -47,6 +47,8 @@ services:
       - ./nginx/development/footvote.conf:/etc/nginx/sites-enabled/footvote
       - ./nginx/development/tmp/error.log:/var/log/nginx/error.log
       - ./nginx/development/tmp/access.log:/var/log/nginx/access.log
+      - ./nginx/development/footvote.key.pem:/etc/ssl/certs/footvote.key.pem
+      - ./nginx/development/footvote.cert.pem:/etc/ssl/certs/footvote.cert.pem
     ports:
       - "80:80"
       - "443:443"
