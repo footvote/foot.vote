@@ -41,6 +41,11 @@ export default {
       this.error = error.message;
       console.log("Your browser does not support geolocation API ");
     }
+
+    navigator.geolocation.watchPosition(position => {
+      var coordinates = position.coords
+      this.showLocationOnTheMap(coordinates.latitude, coordinates.longitude)
+    })
   },
   methods: {
     showLocationOnTheMap(latitude, longitude) {
