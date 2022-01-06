@@ -20,3 +20,8 @@ mkcert "*.footvote.xyz" footvote.xyz
   - production
     `$ config/ansible`
     `$ ansible-playbook site.yml ansible.cfg -i environments/production/hosts`
+– Puma with Systemd
+
+```
+cap production puma:systemd:config puma:systemd:enable
+```

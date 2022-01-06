@@ -7,7 +7,7 @@ set :application,     "footvote"
 set :user,            "deploy"
 set :deploy_to,       "/home/ubuntu/footvote"
 set :keep_releases,   5
-# set :clockwork_file, "config/clock.rb"
+set :puma_phased_restart, true
 
 # Default value for :linked_files is []
 append :linked_files, "config/database.yml", "config/master.key", "config/credentials/production.key"
