@@ -1,0 +1,7 @@
+---
+
+- name: redis | install
+  apt: name=redis-server state=present
+
+- name: redis | ensure running and enabled on boot
+  service: name=redis-server state=started enabled=yes

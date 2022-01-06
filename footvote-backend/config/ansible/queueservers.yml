@@ -1,0 +1,7 @@
+---
+
+- hosts: queueservers
+  remote_user: ubuntu
+  become: yes
+  roles:
+    - redis

@@ -1,0 +1,19 @@
+---
+
+- name: puma | copy puma.rb file to shared directory
+  tags: puma
+  template:
+    src: puma.rb.j2
+    dest: "{{ app_dir }}/shared/puma.rb"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: 0644
+
+- name: puma | copy puma init.d script
+  tags: puma
+  template:
+    src: puma-init.sh.j2
+    dest: /etc/init.d/{{ app_name }}-puma
+    owner: root
+    group: root
+    mode: 0744

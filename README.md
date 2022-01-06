@@ -13,3 +13,10 @@ mkcert -install
 cd nginx/development/
 mkcert "*.footvote.xyz" footvote.xyz
 ```
+
+
+* Deployment instructions
+- Ansible
+  - production
+    `$ config/ansible`
+    `$ ansible-playbook site.yml ansible.cfg -i environments/production/hosts`

@@ -1,0 +1,82 @@
+---
+
+- name: ruby | install required packages
+  tags: ruby
+  apt: name={{ item }} state=present
+  with_items:
+    - autoconf
+    - bison
+    - git-core
+    - curl
+    - zlib1g-dev
+    - build-essential
+    - libssl-dev
+    - libreadline-dev
+    - libyaml-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libcurl4-openssl-dev
+    - software-properties-common
+    - libffi-dev
+
+- name: create ruby-build folder
+  tags: ruby
+  file: path={{ ruby_build_root }} state=directory owner={{ user }} group={{ user }}
+
+- name: download ruby-build
+  tags: ruby
+  git: repo=git://github.com/sstephenson/ruby-build.git dest={{ ruby_build_root }} update=yes
+
+- name: add ruby-build to $PATH
+  tags: ruby
+  file: path=/usr/bin/ruby-build src={{ ruby_build_root }}/bin/ruby-build state=link
+
+- name: ruby | check if ruby {{ ruby_version }} is installed
+  tags: ruby
+  become_user: "{{ user }}"
+  shell: ruby --version | grep {{ ruby_version }}
+  ignore_errors: yes
+  register: ruby_installed
+
+- name: ruby | install
+  tags: ruby
+  become_user: "{{ user }}"
+  shell: ruby-build {{ ruby_version }} {{ ruby_dir }}
+  when: ruby_installed is failed
+
+- name: ruby | copy .gemrc
+  tags: ruby
+  copy: src=dot_gemrc dest={{ home }}/.gemrc owner={{ user }} group={{ user }} mode=0644
+  when: ruby_installed is failed
+
+- name: ruby | add ruby symlinks
+  tags: ruby
+  file:
+    src: "{{ ruby_dir }}/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
+    state: link
+    force: yes
+  with_items:
+    - erb
+    - gem
+    - irb
+    - rake
+    - rdoc
+    - ruby
+  when: ruby_installed is failed
+
+- name: bundler | install
+  tags: ruby
+  become_user: "{{ user }}"
+  gem: name=bundler state=present user_install=no
+
+- name: bundler | add symlinks
+  tags: ruby
+  file:
+    src: "{{ ruby_dir }}/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
+    state: link
+    force: yes
+  with_items:
+    - bundle
+    - bundler

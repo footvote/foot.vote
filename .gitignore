@@ -39,3 +39,8 @@
 
 # nginx logs and tmp
 /nginx/development/tmp/*
+
+# ignore env
+/footvote-backend/.env
+/footvote-backend/config/ansible/*.retry
+/footvote-backend/config/ansible/.vault_pass
