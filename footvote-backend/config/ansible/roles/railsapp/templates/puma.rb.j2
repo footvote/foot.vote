@@ -1,8 +1,5 @@
 # {{ ansible_managed }}
 
-require "dotenv"
-Dotenv.load("{{ app_dir }}/shared/.env")
-
 workers_count = ENV.fetch("RAILS_WORKERS") { "{{ puma_workers }}" }.to_i
 workers workers_count
 
@@ -19,7 +16,6 @@ pidfile "{{ app_dir }}/shared/tmp/pids/puma.pid"
 state_path "{{ app_dir }}/shared/tmp/pids/puma.state"
 
 prune_bundler
-daemonize true
 
 before_fork do
   ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
