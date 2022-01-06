@@ -22,6 +22,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /footvote-backend/config/master.key
+/footvote-backend/credentials/production.key
 
 
 # footvote-frontend
@@ -39,3 +40,8 @@
 
 # nginx logs and tmp
 /nginx/development/tmp/*
+
+# ignore env
+/footvote-backend/.env
+/footvote-backend/config/ansible/*.retry
+/footvote-backend/config/ansible/.vault_pass

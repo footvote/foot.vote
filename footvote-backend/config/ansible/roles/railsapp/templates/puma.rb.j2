@@ -1,0 +1,33 @@
+# {{ ansible_managed }}
+
+workers_count = ENV.fetch("RAILS_WORKERS") { "{{ puma_workers }}" }.to_i
+workers workers_count
+
+threads_count = ENV.fetch("RAILS_MAX_THREADS") { "{{ puma_threads }}" }.to_i
+threads threads_count, threads_count
+
+environment "{{ rails_env }}"
+
+bind "unix://{{ app_dir }}/shared/tmp/sockets/puma.sock"
+
+directory "{{ app_dir }}/current"
+stdout_redirect "{{ app_dir }}/shared/log/puma.stdout.log", "{{ app_dir }}/shared/log/puma.stderr.log", true
+pidfile "{{ app_dir }}/shared/tmp/pids/puma.pid"
+state_path "{{ app_dir }}/shared/tmp/pids/puma.state"
+
+prune_bundler
+
+before_fork do
+  ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
+end
+
+on_worker_boot do |worker_index|
+  # write worker pid
+  File.open("{{ app_dir }}/shared/tmp/pids/puma_worker_#{worker_index}.pid", "w") { |f| f.puts Process.pid }
+
+  puts "Refreshing Gemfile"
+  ENV["BUNDLE_GEMFILE"] = "{{ app_dir }}/current/Gemfile"
+  ENV.update Dotenv::Environment.new(".env")
+
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+end

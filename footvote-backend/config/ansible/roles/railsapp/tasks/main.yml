@@ -1,0 +1,32 @@
+---
+
+- include: ruby.yml
+
+- name: app | install imagemagick
+  apt: name=imagemagick state=present
+
+- name: app | create required directories for deploying
+  file: path={{ item }} state=directory owner={{ user }} group={{ user }} mode=0775
+  with_items:
+    - "{{ app_dir }}"
+    - "{{ app_dir }}/shared"
+    - "{{ app_dir }}/shared/public"
+    - "{{ app_dir }}/shared/config"
+
+- name: app | copy database.yml
+  template:
+    src: database.yml.j2
+    dest: "{{ app_dir }}/shared/config/database.yml"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: 0775
+
+- include: puma.yml
+
+- name: app | setup logrotate
+  template:
+    src: logrotate.conf.j2
+    dest: /etc/logrotate.d/{{ app_name }}
+    owner: root
+    group: root
+    mode: 0644

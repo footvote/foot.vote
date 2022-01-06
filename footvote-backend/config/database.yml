@@ -15,7 +15,9 @@ test:
   database: footvote_backend_test
 
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
   database: footvote_backend_production
   username: footvote_backend
-  password: <%= ENV['FOOTVOTE_BACKEND_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials.db[:password] %>

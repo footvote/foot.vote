@@ -1,0 +1,9 @@
+---
+
+domain_name: "api.foot.vote"
+database_name: "{{ app_name }}_{{ rails_env }}"
+database_user: "{{ app_name }}"
+database_password: "{{ vault_database_password }}"
+puma_workers: 2
+puma_threads: 5
+root_user: root

@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  remote_user: "{{ root_user }}"
+  become: yes
+  roles:
+    - common
+
+- import_playbook: webservers.yml
+- import_playbook: dbservers.yml
+- import_playbook: queueservers.yml

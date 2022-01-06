@@ -1,0 +1,28 @@
+---
+
+- name: apt | update
+  apt: update_cache=yes cache_valid_time=36000
+
+- name: apt | install packages
+  apt: name={{ item }} state=present
+  with_items:
+    - curl
+    - git
+    - python
+    - apt-transport-https
+
+- name: account | create
+  user: name={{ user }} state=present shell=/bin/bash
+
+- lineinfile: dest=/etc/sudoers state=present insertafter="gibberish" line="{{ user }} ALL=(ALL) NOPASSWD:ALL"
+
+- name: account | create .ssh directory
+  file: path={{ home }}/.ssh state=directory
+
+- name: account | user home
+  become_user: "{{ root_user }}"
+  shell: echo $HOME
+  register: user_home
+
+- name: account | copy authorized keys
+  shell: cp {{ user_home.stdout }}/.ssh/authorized_keys {{ home }}/.ssh && chown -R {{ user }}:{{ user }} {{ home }}/.ssh

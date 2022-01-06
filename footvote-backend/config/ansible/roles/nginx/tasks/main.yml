@@ -1,0 +1,39 @@
+---
+
+- name: nginx | install
+  apt: name=nginx state=present
+  notify: start nginx
+
+- include: cloudflare_ssl.yml
+  when: domain_name != "_"
+
+- name: nginx | remove default site symlink
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify: reload nginx
+
+- name: nginx | add https site
+  when: domain_name != "_"
+  template:
+    src: https_site.conf.j2
+    dest: /etc/nginx/sites-available/{{ app_name }}
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
+
+- name: nginx | add http site
+  when: domain_name == "_"
+  template:
+    src: http_site.conf.j2
+    dest: /etc/nginx/sites-available/{{ app_name }}
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
+
+- name: nginx | create site symlink
+  file:
+    src: /etc/nginx/sites-available/{{ app_name }}
+    dest: /etc/nginx/sites-enabled/{{ app_name }}
+    state: link
+  notify: reload nginx

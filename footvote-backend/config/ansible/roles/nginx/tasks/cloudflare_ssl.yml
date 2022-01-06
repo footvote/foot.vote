@@ -1,0 +1,30 @@
+- name: cloudflare_ssl | add domain cert
+  template:
+    src: ssl/cert.pem
+    dest: /etc/ssl/certs/{{ domain_name }}.pem
+    owner: root
+    group: root
+    mode: 0644
+
+- name: cloudflare_ssl | add intermediate cert
+  template:
+    src: ssl/intermediate.pem
+    dest: /etc/ssl/certs/{{ domain_name }}.chain.pem
+    owner: root
+    group: root
+    mode: 0644
+
+- name: cloudflare_ssl | add privkey
+  template:
+    src: ssl/private.key.j2
+    dest: /etc/ssl/certs/{{ domain_name }}.priv.key
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nginx
+
+- name: cloudflare_ssl | create DH key exchange parameter
+  shell: openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+  args:
+    creates: /etc/ssl/certs/dhparam.pem
+  notify: reload nginx

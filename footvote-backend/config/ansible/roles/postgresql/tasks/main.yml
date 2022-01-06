@@ -1,0 +1,48 @@
+---
+
+- name: apt | add postgres apt key
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc state=present
+
+- name: apt | add PostgreSQL official repository
+  apt_repository:
+    repo: "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main"
+    state: present
+
+- name: apt | install packages
+  apt: name={{ item }} state=present
+  with_items:
+    - postgresql-{{ postgresql_version }}
+    - postgresql-contrib-{{ postgresql_version }}
+    - libpq-dev
+    - python3-psycopg2
+
+- name: postgresql | ensure started and enabled on boot
+  service: name=postgresql state=started enabled=yes
+
+- name: postgresql | copy pg_hba.conf file
+  template:
+    src: pg_hba.conf.j2
+    dest: /etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf
+    owner: postgres
+    group: postgres
+    mode: 0640
+  notify: reload postgresql
+
+- name: postgresql | create database user
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    name: "{{ database_user }}"
+    password: "{{ database_password }}"
+    role_attr_flags: SUPERUSER
+    encrypted: yes
+    state: present
+
+- name: postgresql | create database
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: "{{ database_name }}"
+    owner: "{{ database_user }}"
+    encoding: UTF8
+    state: present
