@@ -7,10 +7,18 @@ ENV APP /usr/src/app
 RUN mkdir $APP
 WORKDIR $APP
 
+ENV BUNDLE_PATH /box
+ENV GEM_PATH /box
+ENV GEM_HOME /box
+ENV RAILS_ENV development
+
 COPY Gemfile* $APP/
-RUN bundle config set --local path 'vendor/bundle'
-RUN bundle install -j3
+ENV BUNDLER_VERSION=2.2.15
+RUN gem install bundler:2.2.15
+RUN bundle config set path 'vendor/cache'
+RUN bundle config set deployment 'true'
+RUN bundle install
 
 COPY . $APP/
 
-CMD ["bundle", "exec", "rails", "server", "-p", "8080", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "rails", "server", "-p", "8080", "-b", "0.0.0.0", "-e", "development"]
