@@ -22,7 +22,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /footvote-backend/config/master.key
-/footvote-backend/credentials/production.key
+/footvote-backend/config/credentials/*.key
 
 
 # footvote-frontend
