@@ -1,5 +1,5 @@
 default: &default
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
   host: db
   username: postgres
@@ -15,7 +15,7 @@ test:
   database: footvote_backend_test
 
 production:
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
   host: localhost
   database: footvote_backend_production

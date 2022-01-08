@@ -7,6 +7,12 @@
             url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
             attribution='&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors'>
           </l-tile-layer>
+          <l-marker v-for="slogan in slogans"
+            :lat-lng="slogan.point.coordinates"
+            :key="slogan.id" >
+            <l-tooltip>{{ slogan.summary }}</l-tooltip>
+            <l-popup>{{ slogan.details }}</l-popup>
+          </l-marker>
         </l-map>
       </client-only>
     </div>
@@ -14,11 +20,13 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
       zoom: 5,
       center: [55.0229, 82.5604],
+      slogans: [],
       error: null,
     };
   },
@@ -46,6 +54,12 @@ export default {
       var coordinates = position.coords
       this.showLocationOnTheMap(coordinates.latitude, coordinates.longitude)
     })
+
+    axios
+      .get(this.$config.apiURL)
+      .then(response => {
+        this.slogans = response.data
+      })
   },
   methods: {
     showLocationOnTheMap(latitude, longitude) {

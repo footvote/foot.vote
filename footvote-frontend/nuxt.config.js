@@ -53,5 +53,8 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  publicRuntimeConfig: {
+    apiURL: process.env.API_URL,
+  },
 }
