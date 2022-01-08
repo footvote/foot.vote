@@ -1,5 +1,6 @@
 class ApiController < ApplicationController
   def index
-    render json: { hello: "API footvote is working" }, root: "hello", adapter: :json
+    @slogans = SloganResource.new(Slogan.all).serialize
+    json_response(@slogans)
   end
 end

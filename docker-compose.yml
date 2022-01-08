@@ -2,7 +2,7 @@ version: '2'
 
 services:
   db:
-    image: postgres
+    image: nickblah/postgis:12.9-postgis-3
     ports:
       - "5432"
     environment:

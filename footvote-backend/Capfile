@@ -10,11 +10,11 @@ install_plugin Capistrano::SCM::Git
 
 require "capistrano/bundler"
 # require "capistrano/clockwork"
-require "capistrano/dotenv/tasks"
+# require "capistrano/dotenv/tasks"
 require "capistrano/rails/migrations"
 # require "capistrano/sidekiq"
 require "capistrano/puma"
-install_plugin Capistrano::Puma
+install_plugin Capistrano::Puma, load_hooks: true
 install_plugin Capistrano::Puma::Systemd
 
 # Loads custom tasks from `deploy/lib/capistrano/tasks' if you have any defined.

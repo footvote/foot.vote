@@ -1,5 +1,7 @@
 # Foot.vote – Vote with your feet!
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0ab46ae3-8861-45d1-8ab6-dbfd8574c807/deploy-status)](https://app.netlify.com/sites/footvote/deploys)
+
 ## Docker run
 ```
 docker-compose build
