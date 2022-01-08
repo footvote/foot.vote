@@ -27,7 +27,6 @@ on_worker_boot do |worker_index|
 
   puts "Refreshing Gemfile"
   ENV["BUNDLE_GEMFILE"] = "{{ app_dir }}/current/Gemfile"
-  ENV.update Dotenv::Environment.new(".env")
 
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 end

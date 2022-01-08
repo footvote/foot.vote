@@ -43,5 +43,6 @@
 
 # ignore env
 /footvote-backend/.env
+/footvote-frontend/.env
 /footvote-backend/config/ansible/*.retry
 /footvote-backend/config/ansible/.vault_pass
