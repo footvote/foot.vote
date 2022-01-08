@@ -13,9 +13,12 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "ansi-regex": "^5.0.1",
     "axios": "^0.24.0",
+    "glob-parent": "^5.1.2",
     "nuxt": "^2.0.0",
-    "nuxt-leaflet": "^0.0.25"
+    "nuxt-leaflet": "^0.0.25",
+    "trim-newlines": "^3.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
