@@ -7,6 +7,7 @@ set :application,     "footvote"
 set :user,            "deploy"
 set :deploy_to,       "/home/ubuntu/footvote"
 set :keep_releases,   5
+set :puma_phased_restart, true
 set :puma_enable_socket_service, true
 
 # Default value for :linked_files is []
