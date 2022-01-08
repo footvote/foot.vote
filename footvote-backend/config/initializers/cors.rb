@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins Rails.application.credentials.site_url, 'api.footvote.xyz'
+    origins Rails.application.credentials.site_url, Rails.application.credentials.api_url, '*.footvote.netlify.app'
 
     resource '*',
       headers: :any,
