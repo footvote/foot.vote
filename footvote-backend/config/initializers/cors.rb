@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins Rails.application.credentials.site_url, Rails.application.credentials.api_url
+    origins Rails.application.credentials.site_url
 
     resource '*',
       headers: :any,
@@ -15,7 +15,15 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   end
 
   allow do
-    origins %r{\Ahttps?:\/\/([a-zA-Z\d-]+--)?footvote.netlify.app?\z}
+    origins Rails.application.credentials.api_url
+
+  resource '*',
+    headers: :any,
+    methods: [:get, :post, :put, :patch, :delete, :options, :head]
+end
+
+  allow do
+    origins %r{https:\/\/([a-zA-Z\d-]+--)?footvote.netlify.app}
 
     resource '*',
       headers: :any,
