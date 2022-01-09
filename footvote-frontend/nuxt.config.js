@@ -33,9 +33,26 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: [
+  buildModules: [
     ['nuxt-leaflet', { /* module options */ }],
+    // ['@nuxt/components'],
+    ['@nuxtjs/vuetify'],
   ],
+
+  vuetify: {
+    /* module options */
+    theme: "dark",
+    customVariables: ['~/assets/variables.scss'],
+    font: { family: 'Roboto' },
+    icons: 'mdi'
+  },
+
+  // Global CSS: https://go.nuxtjs.dev/config-css
+  css: [
+    'vuetify/dist/vuetify.min.css',
+  ],
+
+  components: true,
   /*
   ** Build configuration
   */
@@ -56,5 +73,12 @@ module.exports = {
   },
   publicRuntimeConfig: {
     apiURL: process.env.API_URL,
+  },
+
+  vuetify: {
+    customVariables: ["~/assets/variables.scss"],
+    theme: {
+      dark: true,
+    },
   },
 }

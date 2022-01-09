@@ -1,6 +1,58 @@
 <template>
   <div>
-    <nuxt/>
+    <v-card
+      height="100%"
+      max-width="100%"
+    >
+      <v-responsive
+        max-height="92%"
+      >
+        <v-responsive height="92%"><nuxt/></v-responsive>
+      </v-responsive>
+      <v-bottom-navigation
+        absolute
+        fixed
+        horizontal
+        dark
+      >
+
+        <v-btn
+          color="deep-purple accent-4"
+          text
+        >
+          <NuxtLink
+            to="/"
+            style="text-decoration: inherit; color: inherit;"
+          >
+            <v-icon>mdi-home</v-icon>
+            <span>Home</span>
+          </NuxtLink>
+        </v-btn>
+
+
+        <v-btn
+          color="deep-purple accent-4"
+          text
+        >
+          <span>Favorites</span>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+
+        <v-btn
+          color="deep-purple accent-4"
+          text
+        >
+          <NuxtLink
+            to="/nearby"
+            style="text-decoration: none; color: inherit;"
+          >
+            <v-icon>mdi-map-marker</v-icon>
+            <span>Nearby</span>
+          </NuxtLink>
+        </v-btn>
+
+      </v-bottom-navigation>
+    </v-card>
   </div>
 </template>
 
@@ -20,34 +72,4 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
 </style>
-
