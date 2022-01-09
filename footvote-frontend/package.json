@@ -16,11 +16,12 @@
     "ansi-regex": "^5.0.1",
     "axios": "^0.24.0",
     "glob-parent": "^5.1.2",
-    "nuxt": "^2.0.0",
-    "nuxt-leaflet": "^0.0.25",
+    "nuxt": "^2.15.8",
+    "nuxt-leaflet": "^0.0.27",
     "trim-newlines": "^3.0.1"
   },
   "devDependencies": {
+    "@nuxtjs/vuetify": "^1.12.3",
     "babel-eslint": "^10.0.1",
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^4.0.1",
