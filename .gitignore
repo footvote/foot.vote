@@ -46,3 +46,6 @@
 /footvote-frontend/.env
 /footvote-backend/config/ansible/*.retry
 /footvote-backend/config/ansible/.vault_pass
+
+# stuff
+.DS_Store
