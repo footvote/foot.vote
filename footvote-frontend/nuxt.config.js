@@ -4,7 +4,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Foot Vote – Выбирай самое важное ногами!',
+    title: 'Foot Vote – Let’s walk for vote!',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
