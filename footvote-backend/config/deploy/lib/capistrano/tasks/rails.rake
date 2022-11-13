@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-namespace :rails do
-  desc "Open rails console on remote server"
-  task :console do
+namespace :rails do # rubocop:disable Metrics/BlockLength
+  desc 'Open rails console on remote server'
+  task console: :environment do
     on primary(:app) do |host|
       run_interactively "bundle exec bin/rails console -e #{fetch(:rails_env)}", host
     end
   end
 
-  desc "Open rails dbconsole on remote server"
-  task :dbconsole do
+  desc 'Open rails dbconsole on remote server'
+  task dbconsole: :environment do
     on primary(:app) do |host|
       run_interactively "bundle exec rails dbconsole #{fetch(:rails_env)}", host
     end
   end
 
   desc "Run a task on a remote server; example cap staging rails:rake task=some:task args='some=arguments'"
-  task :rake do
+  task rake: :environment do
     on primary(:app) do |host|
       run_interactively("bundle exec rake #{ENV['task']} #{ENV['args']} RAILS_ENV=#{fetch(:rails_env)}", host)
     end

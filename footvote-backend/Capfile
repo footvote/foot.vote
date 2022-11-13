@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 # Load DSL and set up stages
-require "capistrano/setup"
+require 'capistrano/setup'
 
 # Include default deployment tasks
-require "capistrano/deploy"
+require 'capistrano/deploy'
 
 # Load the SCM plugin appropriate to your project:
-require "capistrano/scm/git"
+require 'capistrano/scm/git'
 install_plugin Capistrano::SCM::Git
 
-require "capistrano/bundler"
+require 'capistrano/bundler'
 # require "capistrano/clockwork"
 # require "capistrano/dotenv/tasks"
-require "capistrano/rails/migrations"
+require 'capistrano/rails/migrations'
 # require "capistrano/sidekiq"
-require "capistrano/puma"
+require 'capistrano/puma'
 install_plugin Capistrano::Puma, load_hooks: true
 install_plugin Capistrano::Puma::Systemd
 
 # Loads custom tasks from `deploy/lib/capistrano/tasks' if you have any defined.
-Dir.glob("config/deploy/lib/capistrano/tasks/*.rake").each { |r| import r }
+Dir.glob('config/deploy/lib/capistrano/tasks/*.rake').each { |r| import r }
