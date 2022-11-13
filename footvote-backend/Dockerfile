@@ -1,4 +1,4 @@
-FROM ruby:3.0.1
+FROM ruby:3.1.2
 
 ARG UID
 RUN adduser rails --uid $UID --disabled-password --gecos ""
@@ -9,20 +9,18 @@ WORKDIR $APP
 
 RUN apt-get install curl ca-certificates gnupg
 RUN curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
-RUN bash -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+RUN bash -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
 RUN apt-get update
-RUN apt-get -y --allow-unauthenticated install postgresql-client-12
+RUN apt-get -y --allow-unauthenticated install postgresql-client-15
 
 ENV BUNDLE_PATH /box
 ENV GEM_PATH /box
 ENV GEM_HOME /box
 ENV RAILS_ENV development
 
-COPY Gemfile* $APP/
-ENV BUNDLER_VERSION=2.2.15
-RUN gem install bundler:2.2.15
-RUN bundle config set path 'vendor/cache'
-RUN bundle config set deployment 'true'
+COPY Gemfile $APP/Gemfile
+COPY Gemfile.lock $APP/Gemfile.lock
+ENV BUNDLER_VERSION=2.3.25
 RUN bundle install
 
 RUN bundle exec rails db:migrate
