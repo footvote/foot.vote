@@ -5,7 +5,7 @@ app_name: footvote
 home: "/home/{{ user }}"
 app_dir: "{{ home }}/{{ app_name }}"
 ruby_build_root: "{{ home }}/.ruby_build"
-ruby_version: 3.0.1
+ruby_version: 3.1.2
 ruby_dir: "{{ home }}/.rubies/{{ ruby_version }}"
-postgresql_version: 12
+postgresql_version: 15.1
 rails_env: production
